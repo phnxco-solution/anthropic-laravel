@@ -2,9 +2,9 @@
 
 namespace Phnx\Anthropic;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Phnx\Anthropic\Commands\AnthropicCommand;
 
 class AnthropicServiceProvider extends PackageServiceProvider
 {
@@ -18,6 +18,9 @@ class AnthropicServiceProvider extends PackageServiceProvider
         $package
             ->name('anthropic')
             ->hasConfigFile('anthropic')
-            ->hasCommand(AnthropicCommand::class);
+            ->hasInstallCommand(fn (InstallCommand $command) => $command
+                ->publishConfigFile()
+                ->askToStarRepoOnGitHub('phnxco-solution/anthropic-laravel')
+            );
     }
 }

@@ -13,6 +13,9 @@ return [
     */
 
     'api_key' => env('ANTHROPIC_API_KEY'),
+    'api_version' => env('ANTHROPIC_API_VERSION', 'v1'),
+    'model_version' => env('ANTHROPIC_MODEL_VERSION', '2023-06-01'),
+    'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 1024),
 
     /*
     |--------------------------------------------------------------------------
