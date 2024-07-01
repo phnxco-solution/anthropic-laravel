@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Phnx\Anthropic\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class AnthropicCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'anthropic';
 
     public $description = 'My command';
 
