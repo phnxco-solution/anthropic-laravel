@@ -1,12 +1,13 @@
 {
-    "name": "phnx/anthropic-laravel",
+    "name": "phnxco-solution/anthropic-laravel",
     "description": "About",
     "keywords": [
         "Phnx",
+        "Antrophic",
         "laravel",
         "anthropic-laravel"
     ],
-    "homepage": "https://github.com/phnx/anthropic-laravel",
+    "homepage": "https://github.com/phnxco-solution/anthropic-laravel",
     "license": "MIT",
     "authors": [
         {
