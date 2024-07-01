@@ -57,7 +57,38 @@ class Anthropic
 
     private function mergeParameters(array $parameters): array
     {
-        return array_merge($this->defaultParameters, $parameters);
+        $parameters = $this->parseParameters($parameters);
+
+        return array_merge(
+            $this->defaultParameters,
+            $parameters
+        );
+    }
+
+    private function parseParameters(array $parameters): array
+    {
+        $systemMessage = '';
+        $messages = collect(data_get($parameters, 'messages', []))
+            ->reduce(function ($carry, array $message) use (&$systemMessage) {
+                if ($message['role'] === 'system') {
+                    $systemMessage = $message['content'];
+
+                    return $carry;
+                }
+
+                $carry[] = [
+                    'role' => $message['role'],
+                    'content' => $message['content'],
+                ];
+
+                return $carry;
+            }, []);
+
+        return [
+            'system' => $systemMessage,
+            ...$parameters,
+            'messages' => $messages,
+        ];
     }
 
     /**
