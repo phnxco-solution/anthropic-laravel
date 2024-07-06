@@ -49,10 +49,28 @@ class Anthropic
     {
         $response = $this->contact(
             endpoint: 'messages',
-            parameters: $this->mergeParameters($parameters)
+            parameters: $parameters
         );
 
         return ChatResponseData::fromResponse($response);
+    }
+
+    /**
+     * @throws RequestException
+     * @throws ConnectionException
+     */
+    private function contact(string $endpoint, array $parameters): Response
+    {
+        $response = $this->client->post(
+            url: $endpoint,
+            data: $this->mergeParameters($parameters)
+        );
+
+        if ($response->failed()) {
+            $response->throw();
+        }
+
+        return $response;
     }
 
     private function mergeParameters(array $parameters): array
@@ -89,23 +107,5 @@ class Anthropic
             ...$parameters,
             'messages' => $messages,
         ];
-    }
-
-    /**
-     * @throws RequestException
-     * @throws ConnectionException
-     */
-    private function contact(string $endpoint, array $parameters): Response
-    {
-        $response = $this->client->post(
-            url: $endpoint,
-            data: $this->mergeParameters($parameters)
-        );
-
-        if ($response->failed()) {
-            $response->throw();
-        }
-
-        return $response;
     }
 }
